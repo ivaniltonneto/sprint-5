@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn } from 'typeorm'
 import {Exclude} from 'class-transformer'
+import PaymentInfo from './paymentinfo.entity'//quando vou fazer a relação oneTheOne ou mult, preciso importar a(as) entity que quero fazer essa relação
 
 @Entity('users')
 class User {
@@ -16,6 +17,9 @@ class User {
     @Column()
     isAdm: boolean
 
+    @Column({default: true})
+    isActive: boolean
+
     @CreateDateColumn()
     createdAt: Date
 
@@ -26,6 +30,8 @@ class User {
     @Exclude()
     password: string
 
+    @OneToOne(()=> PaymentInfo, {eager: true}) @JoinColumn()//eager quando true, mostrar todas as realações
+    paymentinfo: PaymentInfo
 }
 
 export { User }
