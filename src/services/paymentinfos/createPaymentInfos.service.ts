@@ -13,7 +13,7 @@ const createPaymentInforService =async ({code, dueDate,name,number}: IPaymentInf
         dueDate,
         name,
         number
-    })//Creando um paymenteInfo    
+    })//Criando um paymenteInfo    
     await paymentinfoRepository.save(paymenteInfo)//salvando as informações
 
     await UserRepository.update(id, {paymentinfo: paymenteInfo})  
