@@ -1,11 +1,14 @@
-import {Request, Response} from 'express'
-import { IPaymentInfoRequest } from '../interfaces/paymentinfo.interface'
-import createPaymentInforService from '../services/paymentinfos/createPaymentInfos.service'
+import { Request, Response } from 'express'
+import { IPaymentInfoRequest } from '../interfaces/paymentInfo.interfaces'
+import createPaymentInfoService from '../services/paymentInfos/createPaymentInfo.service'
 
-export const createPaymentInfoController = async (req: Request, res:Response) =>{
+const createPaymentInfoController = async(req: Request, res: Response) => {
 
     const data: IPaymentInfoRequest = req.body
     const id = req.user.id
-    const createPaymenteInfo = await createPaymentInforService(data, id)
-    return res.status(201).json(createPaymenteInfo)
+    const createdPaymentInfo = await createPaymentInfoService(data, id)
+    return res.status(201).json(createdPaymentInfo)
+
 }
+
+export { createPaymentInfoController }
