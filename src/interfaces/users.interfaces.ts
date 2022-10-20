@@ -14,4 +14,3 @@ export interface IUserUpdateRequest {
 export interface IUserResponse extends IUserRequest {
     id: string
 }
-

@@ -3,8 +3,8 @@ import { User } from '../../entities/user.entity'
 import { ISessionRequest } from '../../interfaces/session.interfaces'
 import { compare } from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import { AppError } from '../../errors/appError'
 import 'dotenv/config'
-import AppError from '../../errors/appError'
 
 const createSessionService = async ({email, password}: ISessionRequest): Promise<string> => {
 
@@ -18,7 +18,7 @@ const createSessionService = async ({email, password}: ISessionRequest): Promise
         throw new AppError('Invalid user or password', 401)
     }//Caso o usuario não seja encontrado
 
-    const passwordMatch = await compare(password, user.password)///comparando a senha criptografada com a digitada através do "compare"
+    const passwordMatch = await compare(password, user.password)///comparando a senha criptografada com a recebida através do "compare"
 
     if(!passwordMatch){
         throw new AppError('Invalid user or password', 401)
@@ -35,6 +35,7 @@ const createSessionService = async ({email, password}: ISessionRequest): Promise
     )//Gerando o token
 
     return token
+
 }
 
 export default createSessionService

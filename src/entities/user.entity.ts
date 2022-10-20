@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm'
-import {Exclude} from 'class-transformer'
-import PaymentInfo from './paymentinfo.entity'//quando vou fazer a relação oneTheOne ou mult, preciso importar a(as) entity que quero fazer essa relação
-import Playlist from './playlists.entity'
+import { Exclude } from 'class-transformer'
+import { PaymentInfo } from './paymentInfo.entity'
+import { Playlist } from './playlist.entity'
 
 @Entity('users')
 class User {
@@ -18,7 +18,7 @@ class User {
     @Column()
     isAdm: boolean
 
-    @Column({default: true})
+    @Column({ default: true })
     isActive: boolean
 
     @CreateDateColumn()
@@ -31,11 +31,12 @@ class User {
     @Exclude()
     password: string
 
-    @OneToOne(()=> PaymentInfo, {eager: true}) @JoinColumn()//eager quando true, mostrar todas as realações
-    paymentinfo: PaymentInfo
+    @OneToOne(() => PaymentInfo /*, {eager: true} */) @JoinColumn() //eager quando true, mostrar todas as realações
+    paymentInfo: PaymentInfo
 
-    @OneToMany(() => Playlist, playlist => playlist.user, {eager: true}) @JoinColumn()
+    @OneToMany(() => Playlist, playlist => playlist.user)
     playlist: Playlist[]
+
 }
 
 export { User }
